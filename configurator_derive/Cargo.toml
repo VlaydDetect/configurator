@@ -1,0 +1,16 @@
+[package]
+name = "configurator_derive"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+proc-macro = true
+
+[features]
+regex = ["dep:regex"]
+
+[dependencies]
+syn = { version = "2", features = ["full", "derive"] }
+quote = "1"
+proc-macro2 = "1"
+regex = { workspace = true, default-features = false, features = ["std"], optional = true }
