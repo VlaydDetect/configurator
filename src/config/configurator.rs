@@ -784,7 +784,7 @@ impl Configurator {
     /// });
     /// ```
     pub fn contains(&self, path: &str) -> bool {
-        self.merged().map_or(false, |v| v.find_ref(path).is_some())
+        self.merged().is_ok_and(|v| v.find_ref(path).is_some())
     }
 
     /// Finds the metadata for the value at `key` path. See [`Value::find()`]

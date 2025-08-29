@@ -154,8 +154,8 @@ impl Metadata {
     /// assert_eq!(interpolated, "KEY.PATH");
     /// ```
     #[inline(always)]
-    pub fn interpolater<I: Clone + Send + Sync + 'static>(mut self, f: I) -> Self
-    where I: Fn(&Profile, &[&str]) -> String
+    pub fn interpolater<I>(mut self, f: I) -> Self
+    where I: Clone + Send + Sync + 'static + Fn(&Profile, &[&str]) -> String
     {
         self.interpolater = Box::new(f);
         self

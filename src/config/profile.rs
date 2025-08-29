@@ -115,14 +115,16 @@ impl Profile {
     /// });
     /// ```
     pub fn from_env(key: &str) -> Option<Self> {
-        for (env_key, val) in std::env::vars_os() {
-            let env_key = env_key.to_string_lossy();
-            if uncased::eq(env_key.trim(), key) {
-                return Some(Profile::new(&val.to_string_lossy()));
-            }
-        }
+        std::env::var_os(key).map(|val| Profile::new(&val.to_string_lossy()))
 
-        None
+        // for (env_key, val) in std::env::vars_os() {
+        //     let env_key = env_key.to_string_lossy();
+        //     if uncased::eq(env_key.trim(), key) {
+        //         return Some(Profile::new(&val.to_string_lossy()));
+        //     }
+        // }
+        //
+        // None
     }
 
     /// Constructs a profile from the value of the environment variable with

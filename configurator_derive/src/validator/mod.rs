@@ -2,7 +2,6 @@ mod check;
 mod emit;
 mod model;
 mod syntax;
-mod util;
 
 use proc_macro::{Delimiter, Literal, Span, TokenStream, TokenTree};
 use quote::quote;

@@ -9,7 +9,7 @@ use syn::token::As;
 use syn::{DeriveInput, Token, Type};
 
 use crate::validator::model::{self, List};
-use crate::validator::util::{default_ctx_name, MaybeFoldError};
+use crate::util::{default_ctx_name, MaybeFoldError};
 
 pub fn parse(input: DeriveInput) -> syn::Result<model::Input> {
     let mut error = None;

@@ -79,7 +79,7 @@ impl<F: Format> Data<F> {
     /// `path` as format `F`. If `path` is relative, the file is searched for in
     /// the current working directory and all parent directories until the root,
     /// and the first hit is used. If you don't want parent directories to be
-    /// searched, use [`Data::file_exact()`] instead.
+    /// searched, use [`Data::file(...).search(false)`] instead.
     ///
     /// Nesting is disabled by default. Use [`Data::nested()`] to enable it.
     ///
@@ -150,15 +150,6 @@ impl<F: Format> Data<F> {
     /// ```
     pub fn string(string: &str) -> Self {
         Data::new(Some(Profile::Default), Source::String(string.into()))
-    }
-
-    /// Deprecated alias for `Data::file(path).search(false)`.
-    ///
-    /// Use [`file(path).search(false)`](Data::search) instead.
-    #[doc(hidden)]
-    #[deprecated(since = "0.10.20", note = "use `::file(path).search(false)` instead")]
-    pub fn file_exact<P: AsRef<Path>>(path: P) -> Self {
-        Data::file(path.as_ref()).search(false)
     }
 
     /// Enables nesting on `self`, which results in top-level keys of the
@@ -335,7 +326,7 @@ impl<F: Format> Data<F> {
     /// Resolves `path` to a valid file path or returns `None`. If `search` is
     /// `true` and `path` is not absolute, searches the current working
     /// directory and all parent directories until the root and return the first
-    /// valid file path. Otherwise returns `path` if it points to a valid file.
+    /// valid file path. Otherwise, returns `path` if it points to a valid file.
     fn resolve(path: &Path, search: bool) -> Option<PathBuf> {
         if path.is_absolute() || !search {
             return path.is_file().then(|| path.to_path_buf());
@@ -346,7 +337,7 @@ impl<F: Format> Data<F> {
         loop {
             let file_path = cwd.join(path);
             if file_path.is_file() {
-                return Some(file_path.into());
+                return Some(file_path);
             }
 
             cwd = cwd.parent()?;
@@ -405,7 +396,7 @@ impl<F: Format> Provider for Data<F> {
 /// # impl Format for T {
 /// #     type Error = serde::de::value::Error;
 /// #     const NAME: &'static str = "T";
-/// #     fn from_str<'de, T: DeserializeOwned>(_: &'de str) -> Result<T, Self::Error> { todo!() }
+/// #     fn from_str<T: DeserializeOwned>(_: &str) -> Result<T, Self::Error> { todo!() }
 /// # }
 /// # fn is_provider<T: configurator::config::Provider>(_: T) {}
 /// // If `T` implements `Format`, `T` is a `Provider`.
@@ -456,21 +447,12 @@ pub trait Format: Sized {
         Data::string(string)
     }
 
-    /// Deprecated alias for `file(path).search(false)`.
-    ///
-    /// Use [`file(path).search(false)`](Data::search) instead.
-    #[doc(hidden)]
-    #[deprecated(since = "0.10.20", note = "use `::file(path).search(false)` instead")]
-    fn file_exact<P: AsRef<Path>>(path: P) -> Data<Self> {
-        Data::file(path.as_ref()).search(false)
-    }
-
     /// Parses `string` as the data format `Self` as a `T` or returns an error
     /// if the `string` is an invalid `T`. **_Note:_** This method is _not_
     /// intended to be called directly. Instead, it is intended to be
     /// _implemented_ and then used indirectly via the [`Data::file()`] or
     /// [`Data::string()`] methods.
-    fn from_str<'de, T: DeserializeOwned>(string: &'de str) -> Result<T, Self::Error>;
+    fn from_str<T: DeserializeOwned>(string: &str) -> Result<T, Self::Error>;
 
     /// Parses the file at `path` as the data format `Self` as a `T` or returns
     /// an error if the `string` is an invalid `T`. The default implementation
@@ -497,7 +479,7 @@ macro_rules! impl_format {
 
             const NAME: &'static str = $NAME;
 
-            fn from_str<'de, T: DeserializeOwned>(s: &'de str) -> Result<T, $E> {
+            fn from_str<T: DeserializeOwned>(s: &str) -> Result<T, $E> {
                 $func(s)
             }
         }
@@ -601,7 +583,8 @@ impl YamlExtended {
     ///     Ok(())
     /// });
     /// ```
-    pub fn from_str<'de, T: DeserializeOwned>(s: &'de str) -> serde_yaml::Result<T> {
+    #[allow(clippy::should_implement_trait)]
+    pub fn from_str<T: DeserializeOwned>(s: &str) -> serde_yaml::Result<T> {
         let mut value: serde_yaml::Value = serde_yaml::from_str(s)?;
         value.apply_merge()?;
         T::deserialize(value)

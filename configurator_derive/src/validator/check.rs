@@ -5,7 +5,7 @@ use syn::parse_quote;
 use syn::spanned::Spanned;
 
 use crate::validator::model::{self, LengthMode};
-use crate::validator::util::{MaybeFoldError, default_ctx_name};
+use crate::util::{MaybeFoldError, default_ctx_name};
 
 pub fn check(input: model::Input) -> syn::Result<model::Validate> {
 	let model::Input {

@@ -412,11 +412,11 @@ impl Display for Error {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		self.kind.fmt(f)?;
 
-		if let (Some(profile), Some(md)) = (&self.profile, &self.metadata) {
-			if !self.path.is_empty() {
-				let key = md.interpolate(profile, &self.path);
-				write!(f, " for key {:?}", key)?;
-			}
+		if let (Some(profile), Some(md)) = (&self.profile, &self.metadata)
+			&& !self.path.is_empty()
+		{
+			let key = md.interpolate(profile, &self.path);
+			write!(f, " for key {:?}", key)?;
 		}
 
 		if let Some(md) = &self.metadata {

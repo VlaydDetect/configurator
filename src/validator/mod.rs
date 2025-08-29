@@ -8,7 +8,7 @@ pub use configurator_derive::{Validate, select};
 pub use error::{Error, Path, Report};
 pub use validate::{Unvalidated, Valid, Validate};
 
-pub type Result = ::core::result::Result<(), Error>;
+pub type Result = core::result::Result<(), Error>;
 
 pub mod external {
 	pub use {compact_str, smallvec};
