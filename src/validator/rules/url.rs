@@ -3,14 +3,14 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(url)]
+//!     #[validate(url)]
 //!     v: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Url`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(url)]` rule.
+//! The entrypoint is the [`Url`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(url)]` rule.
 //!
-//! The [`url`] crate only allows parsing from a `&str`, which is why this trait has a blanket implementation for all `T: garde::rules::AsStr`.
+//! The [`url`] crate only allows parsing from a `&str`, which is why this trait has a blanket implementation for all `T: configurator::validator::rules::AsStr`.
 //!
 //! If you need to implement this for a string-like type where a contiguous slice of the entire contents cannot be obtained,
 //! then there is currently no way for you to implement this trait.

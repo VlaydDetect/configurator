@@ -239,7 +239,7 @@ impl Env {
     ///
     /// ```rust
     /// # use std::collections::BTreeMap;
-    /// # use configurator::util::map;
+    /// # use configurator::config::util::map;
     /// use configurator::{Jail, providers::Env};
     ///
     /// Jail::expect_with(|jail| {

@@ -155,11 +155,11 @@ pub trait Magic: for<'de> Deserialize<'de> {
 /// ```
 #[derive(Debug, Clone)]
 // #[derive(Deserialize, Serialize)]
-// #[serde(rename = "___figment_relative_path_buf")]
+// #[serde(rename = "___conf_relative_path_buf")]
 pub struct RelativePathBuf {
-	// #[serde(rename = "___figment_relative_metadata_path")]
+	// #[serde(rename = "___conf_relative_metadata_path")]
 	metadata_path: Option<PathBuf>,
-	// #[serde(rename = "___figment_relative_path")]
+	// #[serde(rename = "___conf_relative_path")]
 	path: PathBuf,
 }
 
@@ -179,10 +179,10 @@ impl<P: AsRef<Path>> From<P> for RelativePathBuf {
 }
 
 impl Magic for RelativePathBuf {
-	const NAME: &'static str = "___figment_relative_path_buf";
+	const NAME: &'static str = "___conf_relative_path_buf";
 
 	const FIELDS: &'static [&'static str] =
-		&["___figment_relative_metadata_path", "___figment_relative_path"];
+		&["___conf_relative_metadata_path", "___conf_relative_path"];
 
 	fn deserialize_from<'de: 'c, 'c, V: de::Visitor<'de>, I: Interpreter>(
 		de: ConfiguredValueDe<'c, I>,
@@ -399,7 +399,7 @@ impl RelativePathBuf {
 
 // /// MAGIC
 // #[derive(Debug, Clone, PartialEq, Deserialize, Serialize)]
-// #[serde(rename = "___figment_selected_profile")]
+// #[serde(rename = "___conf_selected_profile")]
 // pub struct SelectedProfile {
 //     profile: crate::Profile,
 // }
@@ -409,7 +409,7 @@ impl RelativePathBuf {
 // /// field's value. We can't fabricate this from no value. We either need to fake
 // /// the field name, somehow, or just not have this.
 // impl Magic for SelectedProfile {
-//     const NAME: &'static str = "___figment_selected_profile";
+//     const NAME: &'static str = "___conf_selected_profile";
 //     const FIELDS: &'static [&'static str] = &["profile"];
 //
 //     fn deserialize_from<'de: 'c, 'c, V: de::Visitor<'de>>(
@@ -568,11 +568,11 @@ where
 /// ```
 #[derive(Debug, Clone)]
 // #[derive(Deserialize, Serialize)]
-// #[serde(rename = "___figment_tagged_item")]
+// #[serde(rename = "___conf_tagged_item")]
 pub struct Tagged<T> {
-	// #[serde(rename = "___figment_tagged_tag")]
+	// #[serde(rename = "___conf_tagged_tag")]
 	tag: Tag,
-	// #[serde(rename = "___figment_tagged_value")]
+	// #[serde(rename = "___conf_tagged_value")]
 	value: T,
 }
 
@@ -583,8 +583,8 @@ impl<T: PartialEq> PartialEq for Tagged<T> {
 }
 
 impl<T: for<'de> Deserialize<'de>> Magic for Tagged<T> {
-	const NAME: &'static str = "___figment_tagged_item";
-	const FIELDS: &'static [&'static str] = &["___figment_tagged_tag", "___figment_tagged_value"];
+	const NAME: &'static str = "___conf_tagged_item";
+	const FIELDS: &'static [&'static str] = &["___conf_tagged_tag", "___conf_tagged_value"];
 
 	fn deserialize_from<'de: 'c, 'c, V: de::Visitor<'de>, I: Interpreter>(
 		de: ConfiguredValueDe<'c, I>,
@@ -767,8 +767,8 @@ mod _serde {
 						__E: _serde::de::Error,
 					{
 						match __value {
-							"___figment_relative_metadata_path" => export::Ok(__Field::__field0),
-							"___figment_relative_path" => export::Ok(__Field::__field1),
+							"___conf_relative_metadata_path" => export::Ok(__Field::__field0),
+							"___conf_relative_path" => export::Ok(__Field::__field1),
 							_ => export::Ok(__Field::__ignore),
 						}
 					}
@@ -777,8 +777,8 @@ mod _serde {
 						__E: _serde::de::Error,
 					{
 						match __value {
-							b"___figment_relative_metadata_path" => export::Ok(__Field::__field0),
-							b"___figment_relative_path" => export::Ok(__Field::__field1),
+							b"___conf_relative_metadata_path" => export::Ok(__Field::__field0),
+							b"___conf_relative_path" => export::Ok(__Field::__field1),
 							_ => export::Ok(__Field::__ignore),
 						}
 					}
@@ -872,7 +872,7 @@ mod _serde {
 									if export::Option::is_some(&__field0) {
 										return export::Err(
 											<__A::Error as _serde::de::Error>::duplicate_field(
-												"___figment_relative_metadata_path",
+												"___conf_relative_metadata_path",
 											),
 										);
 									}
@@ -891,7 +891,7 @@ mod _serde {
 									if export::Option::is_some(&__field1) {
 										return export::Err(
 											<__A::Error as _serde::de::Error>::duplicate_field(
-												"___figment_relative_path",
+												"___conf_relative_path",
 											),
 										);
 									}
@@ -922,7 +922,7 @@ mod _serde {
 						let __field0 = match __field0 {
 							export::Some(__field0) => __field0,
 							export::None => {
-								match export::missing_field("___figment_relative_metadata_path") {
+								match export::missing_field("___conf_relative_metadata_path") {
 									export::Ok(__val) => __val,
 									export::Err(__err) => {
 										return export::Err(__err);
@@ -932,7 +932,7 @@ mod _serde {
 						};
 						let __field1 = match __field1 {
 							export::Some(__field1) => __field1,
-							export::None => match export::missing_field("___figment_relative_path")
+							export::None => match export::missing_field("___conf_relative_path")
 							{
 								export::Ok(__val) => __val,
 								export::Err(__err) => {
@@ -947,10 +947,10 @@ mod _serde {
 					}
 				}
 				const FIELDS: &[&str] =
-					&["___figment_relative_metadata_path", "___figment_relative_path"];
+					&["___conf_relative_metadata_path", "___conf_relative_path"];
 				_serde::Deserializer::deserialize_struct(
 					__deserializer,
-					"___figment_relative_path_buf",
+					"___conf_relative_path_buf",
 					FIELDS,
 					__Visitor {
 						marker: export::PhantomData::<RelativePathBuf>,
@@ -974,7 +974,7 @@ mod _serde {
 			{
 				let mut __serde_state = match _serde::Serializer::serialize_struct(
 					__serializer,
-					"___figment_relative_path_buf",
+					"___conf_relative_path_buf",
 					false as usize + 1 + 1,
 				) {
 					export::Ok(__val) => __val,
@@ -984,7 +984,7 @@ mod _serde {
 				};
 				match _serde::ser::SerializeStruct::serialize_field(
 					&mut __serde_state,
-					"___figment_relative_metadata_path",
+					"___conf_relative_metadata_path",
 					&self.metadata_path,
 				) {
 					export::Ok(__val) => __val,
@@ -994,7 +994,7 @@ mod _serde {
 				};
 				match _serde::ser::SerializeStruct::serialize_field(
 					&mut __serde_state,
-					"___figment_relative_path",
+					"___conf_relative_path",
 					&self.path,
 				) {
 					export::Ok(__val) => __val,
@@ -1081,8 +1081,8 @@ mod _serde {
 						__E: _serde::de::Error,
 					{
 						match __value {
-							"___figment_tagged_tag" => export::Ok(__Field::__field0),
-							"___figment_tagged_value" => export::Ok(__Field::__field1),
+							"___conf_tagged_tag" => export::Ok(__Field::__field0),
+							"___conf_tagged_value" => export::Ok(__Field::__field1),
 							_ => export::Ok(__Field::__ignore),
 						}
 					}
@@ -1091,8 +1091,8 @@ mod _serde {
 						__E: _serde::de::Error,
 					{
 						match __value {
-							b"___figment_tagged_tag" => export::Ok(__Field::__field0),
-							b"___figment_tagged_value" => export::Ok(__Field::__field1),
+							b"___conf_tagged_tag" => export::Ok(__Field::__field0),
+							b"___conf_tagged_value" => export::Ok(__Field::__field1),
 							_ => export::Ok(__Field::__ignore),
 						}
 					}
@@ -1189,7 +1189,7 @@ mod _serde {
 									if export::Option::is_some(&__field0) {
 										return export::Err(
 											<__A::Error as _serde::de::Error>::duplicate_field(
-												"___figment_tagged_tag",
+												"___conf_tagged_tag",
 											),
 										);
 									}
@@ -1206,7 +1206,7 @@ mod _serde {
 									if export::Option::is_some(&__field1) {
 										return export::Err(
 											<__A::Error as _serde::de::Error>::duplicate_field(
-												"___figment_tagged_value",
+												"___conf_tagged_value",
 											),
 										);
 									}
@@ -1234,7 +1234,7 @@ mod _serde {
 						}
 						let __field0 = match __field0 {
 							export::Some(__field0) => __field0,
-							export::None => match export::missing_field("___figment_tagged_tag") {
+							export::None => match export::missing_field("___conf_tagged_tag") {
 								export::Ok(__val) => __val,
 								export::Err(__err) => {
 									return export::Err(__err);
@@ -1244,7 +1244,7 @@ mod _serde {
 						let __field1 = match __field1 {
 							export::Some(__field1) => __field1,
 							export::None => {
-								match export::missing_field("___figment_tagged_value") {
+								match export::missing_field("___conf_tagged_value") {
 									export::Ok(__val) => __val,
 									export::Err(__err) => {
 										return export::Err(__err);
@@ -1258,10 +1258,10 @@ mod _serde {
 						})
 					}
 				}
-				const FIELDS: &[&str] = &["___figment_tagged_tag", "___figment_tagged_value"];
+				const FIELDS: &[&str] = &["___conf_tagged_tag", "___conf_tagged_value"];
 				_serde::Deserializer::deserialize_struct(
 					__deserializer,
-					"___figment_tagged_item",
+					"___conf_tagged_item",
 					FIELDS,
 					__Visitor {
 						marker: export::PhantomData::<Tagged<T>>,
@@ -1288,7 +1288,7 @@ mod _serde {
 			{
 				let mut __serde_state = match _serde::Serializer::serialize_struct(
 					__serializer,
-					"___figment_tagged_item",
+					"___conf_tagged_item",
 					false as usize + 1 + 1,
 				) {
 					export::Ok(__val) => __val,
@@ -1298,7 +1298,7 @@ mod _serde {
 				};
 				match _serde::ser::SerializeStruct::serialize_field(
 					&mut __serde_state,
-					"___figment_tagged_tag",
+					"___conf_tagged_tag",
 					&self.tag,
 				) {
 					export::Ok(__val) => __val,
@@ -1308,7 +1308,7 @@ mod _serde {
 				};
 				match _serde::ser::SerializeStruct::serialize_field(
 					&mut __serde_state,
-					"___figment_tagged_value",
+					"___conf_tagged_value",
 					&self.value,
 				) {
 					export::Ok(__val) => __val,

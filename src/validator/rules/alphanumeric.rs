@@ -3,14 +3,14 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(alphanumeric)]
+//!     #[validate(alphanumeric)]
 //!     v: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Alphanumeric`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(alphanumeric)]` rule.
+//! The entrypoint is the [`Alphanumeric`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(alphanumeric)]` rule.
 //!
-//! This trait has a blanket implementation for all `T: garde::rules::AsStr`.
+//! This trait has a blanket implementation for all `T: configurator::validator::rules::AsStr`.
 
 use super::AsStr;
 use crate::validator::error::Error;

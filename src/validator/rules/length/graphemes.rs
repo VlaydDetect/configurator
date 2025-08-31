@@ -1,6 +1,6 @@
 //! Implemented by string-like types for which we can retrieve length in the number of graphemes.
 //!
-//! `garde` implementations of this trait use the [unicode-segmentation](https://crates.io/crates/unicode-segmentation) crate.
+//! `configurator::validator` implementations of this trait use the [unicode-segmentation](https://crates.io/crates/unicode-segmentation) crate.
 
 use crate::validator::error::Error;
 

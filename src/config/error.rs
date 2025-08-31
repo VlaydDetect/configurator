@@ -140,7 +140,7 @@ impl Error {
 	/// Prepends `self` to `error` and returns `error`.
 	///
 	/// ```rust
-	/// use configurator::Error;
+	/// use configurator::config::Error;
 	///
 	/// let e1 = Error::from("1");
 	/// let e2 = Error::from("2");

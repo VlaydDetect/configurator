@@ -3,14 +3,14 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(skip)]
+//!     #[validate(skip)]
 //!     foo: String,
-//!     #[garde(matches(foo))]
+//!     #[validate(matches(foo))]
 //!     bar: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Matches`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(matches)]` rule.
+//! The entrypoint is the [`Matches`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(matches)]` rule.
 //!
 //! This trait has a blanket implementation for all `T: PartialEq<O>, O`.
 

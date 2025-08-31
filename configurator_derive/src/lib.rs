@@ -4,7 +4,7 @@ mod validator;
 mod config;
 mod util;
 
-#[proc_macro_derive(Validate, attributes(garde))]
+#[proc_macro_derive(Validate, attributes(validate))]
 pub fn derive_validate(input: TokenStream) -> TokenStream {
     validator::derive_validate_inner(input)
 }

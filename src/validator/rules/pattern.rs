@@ -5,7 +5,7 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(pattern(r"[a-zA-Z0-9][a-zA-Z0-9_]+"))]
+//!     #[validate(pattern(r"[a-zA-Z0-9][a-zA-Z0-9_]+"))]
 //!     v: String,
 //! }
 //! ```
@@ -23,7 +23,7 @@
 //!
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(pattern(LAZY_RE))]
+//!     #[validate(pattern(LAZY_RE))]
 //!     v: String,
 //! }
 //! ```
@@ -36,14 +36,14 @@
 //!
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(pattern(LAZY_RE))]
+//!     #[validate(pattern(LAZY_RE))]
 //!     v: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Pattern`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(pattern(...))]` rule.
+//! The entrypoint is the [`Pattern`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(pattern(...))]` rule.
 //!
-//! This trait has a blanket implementation for all `T: garde::rules::AsStr`.
+//! This trait has a blanket implementation for all `T: configurator::validator::rules::AsStr`.
 
 use super::AsStr;
 use crate::validator::error::Error;

@@ -115,7 +115,7 @@ where P: AsRef<Path>, B: AsRef<Path>
 ///
 /// #[derive(serde::Deserialize)]
 /// struct Config {
-///     #[serde(deserialize_with = "configurator::util::bool_from_str_or_int")]
+///     #[serde(deserialize_with = "configurator::config::util::bool_from_str_or_int")]
 ///     cli_colors: bool,
 /// }
 ///

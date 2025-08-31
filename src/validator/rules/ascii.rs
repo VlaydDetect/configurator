@@ -3,14 +3,14 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(ascii)]
+//!     #[validate(ascii)]
 //!     v: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Ascii`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(ascii)]` rule.
+//! The entrypoint is the [`Ascii`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(ascii)]` rule.
 //!
-//! This trait has a blanket implementation for all `T: garde::rules::AsStr`.
+//! This trait has a blanket implementation for all `T: configurator::validator::rules::AsStr`.
 
 use super::AsStr;
 use crate::validator::error::Error;

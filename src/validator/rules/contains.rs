@@ -5,16 +5,16 @@
 //!
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(contains("test"))]
+//!     #[validate(contains("test"))]
 //!     v: String,
-//!     #[garde(contains(STR))]
+//!     #[validate(contains(STR))]
 //!     w: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Contains`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(contains)]` rule.
+//! The entrypoint is the [`Contains`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(contains)]` rule.
 //!
-//! This trait has a blanket implementation for all `T: garde::rules::AsStr`.
+//! This trait has a blanket implementation for all `T: configurator::validator::rules::AsStr`.
 
 use super::AsStr;
 use crate::validator::error::Error;

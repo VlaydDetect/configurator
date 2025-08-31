@@ -14,5 +14,5 @@ impl MaybeFoldError for Option<syn::Error> {
 }
 
 pub fn default_ctx_name() -> syn::Ident {
-    syn::Ident::new("__garde_user_ctx", proc_macro2::Span::call_site())
+    syn::Ident::new("__configurator_validator_user_ctx", proc_macro2::Span::call_site())
 }

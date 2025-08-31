@@ -1,4 +1,4 @@
-//! Error types used by `garde`.
+//! Error types used by `configurator::validator`.
 //!
 //! The entrypoint of this module is the [`Error`] type.
 #![allow(dead_code)]

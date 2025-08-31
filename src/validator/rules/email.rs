@@ -3,14 +3,14 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(email)]
+//!     #[validate(email)]
 //!     v: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Email`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(email)]` rule.
+//! The entrypoint is the [`Email`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(email)]` rule.
 //!
-//! This trait has a blanket implementation for all `T: garde::rules::AsStr`.
+//! This trait has a blanket implementation for all `T: configurator::validator::rules::AsStr`.
 
 use std::fmt::Display;
 use std::str::FromStr;
@@ -21,13 +21,8 @@ use crate::validator::error::Error;
 
 macro_rules! init_regex {
     ($var:ident => $p:literal) => {
-        #[cfg(not(all(feature = "js-sys", target_arch = "wasm32", target_os = "unknown")))]
         static $var: $crate::validator::rules::pattern::regex::StaticPattern =
             $crate::validator::rules::pattern::regex::init_pattern!($p);
-
-        #[cfg(all(feature = "js-sys", target_arch = "wasm32", target_os = "unknown"))]
-        static $var: $crate::validator::rules::pattern::regex_js_sys::StaticPattern =
-            $crate::validator::rules::pattern::regex_js_sys::init_pattern!($p);
     };
 }
 
@@ -138,7 +133,7 @@ pub fn parse_email(s: &str) -> Result<(), InvalidEmail> {
 fn is_valid_domain(domain: &str) -> bool {
     init_regex! {
         DOMAIN_NAME_RE => r"(?i-u)^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*$"
-    };
+    }
 
     if DOMAIN_NAME_RE.is_match(domain) {
         return true;

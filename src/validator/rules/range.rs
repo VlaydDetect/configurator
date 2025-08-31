@@ -3,12 +3,12 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(range(min=10,max=100))]
+//!     #[validate(range(min=10,max=100))]
 //!     v: u64,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Bounds`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(range(...))]` rule.
+//! The entrypoint is the [`Bounds`] trait. Implementing this trait for a type allows that type to be used with the `#[validaterde(range(...))]` rule.
 //!
 //! This trait is implemented for all primitive integer types.
 

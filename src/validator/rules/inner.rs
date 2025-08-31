@@ -3,12 +3,12 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(inner(length(min=1)))]
+//!     #[validate(inner(length(min=1)))]
 //!     v: Vec<String>,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Inner`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(inner(..))]` rule.
+//! The entrypoint is the [`Inner`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(inner(..))]` rule.
 
 use crate::validator::error::{NoKey, PathComponentKind};
 

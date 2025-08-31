@@ -201,7 +201,7 @@ impl Profile {
     /// # Example
     ///
     /// ```rust
-    /// use configurator::{Profile, util::map, map};
+    /// use configurator::{Profile, map};
     ///
     /// let profile = Profile::new("static");
     /// let map = profile.collect(map!["hi".into() => 123.into()]);

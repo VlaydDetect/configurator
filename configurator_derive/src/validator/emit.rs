@@ -22,17 +22,17 @@ impl ToTokens for model::Validate {
         };
 
         quote! {
-            impl #impl_generics ::garde::Validate for #ident #ty_generics #where_clause {
+            impl #impl_generics ::configurator::validator::Validate for #ident #ty_generics #where_clause {
                 type Context = #context_ty ;
 
                 #[allow(clippy::needless_borrow)]
                 fn validate_into(
                     &self,
                     #context_ident: &Self::Context,
-                    mut __garde_path: &mut dyn FnMut() -> ::garde::Path,
-                    __garde_report: &mut ::garde::error::Report,
+                    mut __conf_path: &mut dyn FnMut() -> ::configurator::validator::Path,
+                    __conf_report: &mut ::configurator::validator::error::Report,
                 ) {
-                    let __garde_user_ctx = &#context_ident;
+                    let __conf_user_ctx = &#context_ident;
 
                     #ty
                 }
@@ -133,7 +133,7 @@ impl ToTokens for Struct<'_> {
                     #value
                 }},
                 false => quote! {{
-                    let mut __garde_path = ::garde::util::nested_path!(__garde_path, #key);
+                    let mut __conf_path = ::configurator::validator::util::nested_path!(__conf_path, #key);
                     #value
                 }},
             },
@@ -159,7 +159,7 @@ impl ToTokens for Tuple<'_> {
                     #value
                 }},
                 false => quote! {{
-                    let mut __garde_path = ::garde::util::nested_path!(__garde_path, #index);
+                    let mut __conf_path = ::configurator::validator::util::nested_path!(__conf_path, #index);
                     #value
                 }},
             },
@@ -209,9 +209,9 @@ impl ToTokens for Inner<'_> {
 
         quote! {
             #rules_mod::inner::apply(
-                &*__garde_binding,
-                |__garde_binding, __garde_inner_key| {
-                    let mut __garde_path = ::garde::util::nested_path!(__garde_path, __garde_inner_key);
+                &*__conf_binding,
+                |__conf_binding, __conf_inner_key| {
+                    let mut __conf_path = ::configurator::validator::util::nested_path!(__conf_path, __conf_inner_key);
                     #value
                 }
             );
@@ -249,8 +249,8 @@ impl ToTokens for Rules<'_> {
 
         for custom_rule in rule_set.custom_rules.iter() {
             quote! {
-                if let Err(__garde_error) = (#custom_rule)(&*__garde_binding, &__garde_user_ctx) {
-                    __garde_report.append(__garde_path(), __garde_error);
+                if let Err(__conf_error) = (#custom_rule)(&*__conf_binding, &__conf_user_ctx) {
+                    __conf_report.append(__conf_path(), __conf_error);
                 }
             }
                 .to_tokens(tokens);
@@ -315,8 +315,8 @@ impl ToTokens for Rules<'_> {
             };
 
             quote! {
-                if let Err(__garde_error) = (#rules_mod::#name::apply)(&*__garde_binding, #args) {
-                    __garde_report.append(__garde_path(), __garde_error);
+                if let Err(__conf_error) = (#rules_mod::#name::apply)(&*__conf_binding, #args) {
+                    __conf_report.append(__conf_path(), __conf_error);
                 }
             }
                 .to_tokens(tokens)
@@ -343,7 +343,7 @@ where
             None => return,
         };
         let fields = fields.filter(|(_, field, _)| field.skip.is_none());
-        let default_rules_mod = quote!(::garde::rules);
+        let default_rules_mod = quote!(::configurator::validator::rules);
         for (binding, field, extra) in fields {
             let field_adapter = field
                 .adapter
@@ -364,19 +364,19 @@ where
             };
             let inner = match (&field.dive, &field.rule_set.inner) {
                 (Some((_, None)), None) => Some(quote! {
-                    ::garde::validate::Validate::validate_into(
-                        &*__garde_binding,
-                        __garde_user_ctx,
-                        &mut __garde_path,
-                        __garde_report,
+                    ::configurator::validator::validate::Validate::validate_into(
+                        &*__conf_binding,
+                        __conf_user_ctx,
+                        &mut __conf_path,
+                        __conf_report,
                     );
                 }),
                 (Some((_, Some(ctx))), None) => Some(quote! {
-                    ::garde::validate::Validate::validate_into(
-                        &*__garde_binding,
+                    ::configurator::validator::validate::Validate::validate_into(
+                        &*__conf_binding,
                         &#ctx,
-                        &mut __garde_path,
-                        __garde_report,
+                        &mut __conf_path,
+                        __conf_report,
                     );
                 }),
                 (None, Some(inner)) => Some(
@@ -393,16 +393,16 @@ where
 
             let value = match (outer, inner) {
                 (Some(outer), Some(inner)) => quote! {
-                    let __garde_binding = &*#binding;
+                    let __conf_binding = &*#binding;
                     #inner
                     #outer
                 },
                 (None, Some(inner)) => quote! {
-                    let __garde_binding = &*#binding;
+                    let __conf_binding = &*#binding;
                     #inner
                 },
                 (Some(outer), None) => quote! {
-                    let __garde_binding = &*#binding;
+                    let __conf_binding = &*#binding;
                     #outer
                 },
                 (None, None) => unreachable!("field should already be skipped"),

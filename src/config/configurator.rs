@@ -174,7 +174,6 @@ impl Configurator {
     ///
     /// ```rust
     /// use configurator::{map, Configurator};
-    /// use configurator::util::map;
     /// use configurator::value::{Dict, Map};
     ///
     /// let figment = Configurator::new()
@@ -215,7 +214,6 @@ impl Configurator {
     ///
     /// ```rust
     /// use configurator::{map, Configurator};
-    /// use configurator::util::map;
     /// use configurator::value::{Dict, Map};
     ///
     /// let figment = Configurator::new()
@@ -256,7 +254,6 @@ impl Configurator {
     ///
     /// ```rust
     /// use configurator::{map, Configurator};
-    /// use configurator::util::map;
     /// use configurator::value::{Dict, Map};
     ///
     /// let figment = Configurator::new()
@@ -297,7 +294,6 @@ impl Configurator {
     ///
     /// ```rust
     /// use configurator::{map, Configurator};
-    /// use configurator::util::map;
     /// use configurator::value::{Dict, Map};
     ///
     /// let figment = Configurator::new()

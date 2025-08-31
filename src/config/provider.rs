@@ -37,7 +37,7 @@ use super::value::{Tag, Map, Dict};
 ///
 /// ```rust,no_run
 /// # use serde::Deserialize;
-/// use configurator::{Provider, Metadata, Profile, Error, value::{Map, Dict}};
+/// use configurator::{Provider, Metadata, Profile, config::Error, value::{Map, Dict}};
 ///
 /// # type Url = String;
 /// /// A provider that fetches its data from a given URL.
@@ -46,7 +46,7 @@ use super::value::{Tag, Map, Dict};
 ///     profile: Option<Profile>,
 ///     /// The url to fetch data from.
 ///     url: Url
-/// };
+/// }
 ///
 /// impl Provider for NetProvider {
 ///     /// Returns metadata with kind `Network`, custom source `self.url`,

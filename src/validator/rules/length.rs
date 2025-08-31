@@ -3,7 +3,7 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(length(min=1, max=100))]
+//!     #[validate(length(min=1, max=100))]
 //!     v: String,
 //! }
 //! ```
@@ -19,7 +19,7 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(
+//!     #[validate(
 //!         length(graphemes, min=1, max=25),
 //!         length(bytes, min=1, max=100),
 //!     )]

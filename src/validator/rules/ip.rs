@@ -3,14 +3,14 @@
 //! ```rust
 //! #[derive(configurator::Validate)]
 //! struct Test {
-//!     #[garde(ip)]
+//!     #[validate(ip)]
 //!     v: String,
 //! }
 //! ```
 //!
-//! The entrypoint is the [`Ip`] trait. Implementing this trait for a type allows that type to be used with the `#[garde(ip)]` rule.
+//! The entrypoint is the [`Ip`] trait. Implementing this trait for a type allows that type to be used with the `#[validate(ip)]` rule.
 //!
-//! This trait has a blanket implementation for all `T: garde::rules::AsStr`.
+//! This trait has a blanket implementation for all `T: configurator::validator::rules::AsStr`.
 
 use std::fmt::Display;
 

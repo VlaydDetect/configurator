@@ -234,7 +234,7 @@ fn check_field(field: model::Field, options: &model::Options) -> syn::Result<mod
 		} else {
 			error.maybe_fold(syn::Error::new(
 				field.ty.span(),
-				"field has no validation, use `#[garde(skip)]` if this is intentional",
+				"field has no validation, use `#[validate(skip)]` if this is intentional",
 			));
 		}
 	}

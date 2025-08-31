@@ -53,7 +53,7 @@ fn parse_input_attr_list(attrs: &[syn::Attribute]) -> syn::Result<Vec<(Span, mod
     let mut out = Vec::new();
 
     for attr in attrs.iter() {
-        if attr.path().is_ident("garde") {
+        if attr.path().is_ident("validate") {
             match parse_input_attr(attr) {
                 Ok(v) => out.push((attr.span(), v)),
                 Err(e) => error.maybe_fold(e),
@@ -205,7 +205,7 @@ fn parse_field_attr_list(attrs: &[syn::Attribute]) -> syn::Result<Vec<model::Raw
     let mut rules = Vec::new();
 
     for attr in attrs.iter() {
-        if attr.path().is_ident("garde") {
+        if attr.path().is_ident("validate") {
             match attr.parse_args_with(Punctuated::<_, syn::token::Comma>::parse_terminated) {
                 Ok(list) => {
                     for rule in list {

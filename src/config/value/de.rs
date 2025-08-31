@@ -401,10 +401,10 @@ impl<'de> Deserializer<'de> for Empty {
 
 /// Marker trait for "magic" values. Primarily for use with [`Either`].
 impl Value {
-    const NAME: &'static str = "___figment_value";
+    const NAME: &'static str = "___conf_value";
 
     const FIELDS: &'static [&'static str] = &[
-        "___figment_value_id", "___figment_value_value"
+        "___conf_value_id", "___conf_value_value"
     ];
 
     fn deserialize_from<'de: 'c, 'c, V: de::Visitor<'de>, I: Interpreter>(
@@ -455,7 +455,7 @@ impl<'de> Visitor<'de> for ValueVisitor {
     type Value = Value;
 
     fn expecting(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("any valid figment value")
+        f.write_str("any valid conf value")
     }
 
     visit_fn!(visit_bool: bool => Value::Bool);

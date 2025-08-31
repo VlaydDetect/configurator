@@ -47,7 +47,7 @@ impl Tag {
     pub(crate) fn next() -> Tag {
         let id = COUNTER.fetch_add(1, Ordering::AcqRel);
         if id > Self::METADATA_ID_MASK {
-            panic!("figment: out of unique tag IDs");
+            panic!("configurator: out of unique tag IDs");
         }
 
         Tag::new(id, ProfileTag::Default)
